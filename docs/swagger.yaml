@@ -1,0 +1,53 @@
+basePath: /
+definitions:
+  main.EventRequest:
+    properties:
+      event_type:
+        type: string
+      timestamp:
+        type: string
+      user_id:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: event collection and processing
+  title: Event Collector
+  version: "1.0"
+paths:
+  /reception:
+    post:
+      consumes:
+      - application/json
+      description: Request handler for receiving events in JSON format
+      parameters:
+      - description: Event
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/main.EventRequest'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "405":
+          description: Method Not Allowed
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Request handler
+      tags:
+      - events
+swagger: "2.0"
