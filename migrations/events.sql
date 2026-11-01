@@ -3,4 +3,5 @@ CREATE TABLE IF NOT EXISTS events (
     user_id INT NOT NULL,
     event_type VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
+    UNIQUE (user_id, event_type, created_at)
 );
