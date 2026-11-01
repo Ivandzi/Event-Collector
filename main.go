@@ -141,7 +141,9 @@ func (c *Consumer) saveBatch(ctx context.Context, buffer []EventRequest) error {
 	defer cancel()
 	for _, b := range buffer {
 		_, err := c.Pool.Exec(newContext,
-			"INSERT INTO events (user_id, event_type, created_at) VALUES ($1, $2, $3)",
+			`INSERT INTO events (user_id, event_type, created_at)
+		    VALUES ($1, $2, $3)
+			ON CONFLICT DO NOTHING`,
 			b.UserID, b.EventType, b.Timestamp,
 		)
 		if err != nil {
