@@ -160,6 +160,7 @@ func (c *Consumer) saveToDatabase(ctx context.Context, buffer []EventRequest) er
 	for attempt := 1; attempt <= maxRetries; attempt++ {
 		err := c.saveBatch(ctx, buffer)
 		if err == nil {
+			log.Println("Successful preservation")
 			return nil
 		}
 		lastErr = err
